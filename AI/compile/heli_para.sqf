@@ -57,8 +57,8 @@ _gunner2 moveInTurret [_helicopter,[1]];
 [_gunner2] joinSilent _unitGroup;
 
 {_pilot setSkill [_x,1]} forEach _skillarray;
-{_gunner setSkill [_x,_skill]} forEach _skillarray;
-{_gunner2 setSkill [_x,_skill]} forEach _skillarray;
+{_gunner setSkill [_x,0.7]} forEach _skillarray;
+{_gunner2 setSkill [_x,0.7]} forEach _skillarray;
 {_x addweapon "Makarov";_x addmagazine "8Rnd_9x18_Makarov";_x addmagazine "8Rnd_9x18_Makarov";} forEach (units _unitgroup);
 {_x addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];} forEach (units _unitgroup);
 

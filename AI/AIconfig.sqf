@@ -1,26 +1,26 @@
 ///////////////////////////////////////////////////////
-// Sets radius for AI patrols ///
+// Sets radius for AI patrols 
 ai_patrol_radius = 300;
 
-// Sets number of waypoints to add in patrol area ///
+// Sets number of waypoints to add in patrol area 
 ai_patrol_radius_wp = 10;
 
-/// Sets behavior of AI groups ///
+/// Sets behavior of AI groups 
 ai_combatmode = "RED";
 ai_behaviour = "SAFE";
 
 ///////////////////////////////////////////////////////
-/// Turn on AI info sharing ///
+/// Turn on AI info sharing 
 ai_ahare_info = True;
 
-/// Distance AI will let other enemies know of your position (currently only on kill) ///
+/// Distance AI will let other enemies know of your position (currently only on kill) 
 ai_share_distance = 300;
 
 ///////////////////////////////////////////////////////
-/// Gain humanity for killing an AI unit (True: is on. False: is off.) ///
+/// Gain humanity for killing an AI unit (True: is on. False: is off.) 
 ai_humanity_gain = True;
 
-/// Humanity added for AI kill ///
+/// Humanity added for AI kill 
 ai_add_humanity = 50;
 
 /// Adds bandit kill when killing an AI (True: on. False: off.)
@@ -30,7 +30,7 @@ ai_banditkills_gain = True;
 /// Allows you to set a custom skill array for units. (True: will use these arrays. False: will use number in call array)
 ai_custom_skills = True;
 
-/// Custom skill array. Use 0 to use this with ai_custom_skills = True ///
+/// Custom skill array. Use 0 to use this with ai_custom_skills = True 
 ai_custom_array1 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -44,7 +44,7 @@ ai_custom_array1 = [
 ["general",1.00]
 ];
 
-/// Custom skill array. Use 1 to use this with ai_custom_skills = True ///
+/// Custom skill array. Use 1 to use this with ai_custom_skills = True 
 ai_custom_array2 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -58,7 +58,7 @@ ai_custom_array2 = [
 ["general",1.00]
 ];
 
-/// Custom skill array. Use 2 to use this with ai_custom_skills = True ///
+/// Custom skill array. Use 2 to use this with ai_custom_skills = True 
 ai_custom_array3 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -72,17 +72,17 @@ ai_custom_array3 = [
 ["general",1.00]
 ];
 
-/// Arrays used in "Random" custom skill ///
+/// Arrays used in "Random" custom skill 
 ai_skill_random = [ai_custom_array1,ai_custom_array2,ai_custom_array3];
 
 ///////////////////////////////////////////////////////
-/// Allows AI on static guns to have a loadout ///
+/// Allows AI on static guns to have a loadout 
 ai_static_useweapon = True;
 
-/// Allows you to set custom array for AI on static weapons. (True: On False: Off) ///
+/// Allows you to set custom array for AI on static weapons. (True: On False: Off) 
 ai_static_skills = True;
 
-/// Custom skill array. Use this with ai_static_skills = True ///
+/// Custom skill array. Use this with ai_static_skills = True 
 ai_static_array = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -262,9 +262,39 @@ ai_skin = [
 ] call spawn_static;  
 
 [[953.237,4486.48,0.001], //position
-3,						  //Number Of units
+5,						  //Number Of units
 0.5,					  //Skill level 0-1. Has no effect if using custom skills
-2,						  //Primary gun set number. "Random" for random weapon set.
+"Random",			      //Primary gun set number. "Random" for random weapon set.
+4,						  //Number of magazines
+"",						  //Backpack "" for random or classname here.
+"",						  //Skin "" for random or classname here.
+0				          //Gearset number. "Random" for random gear set.
+] call spawn_group;
+
+[[953.237,4486.48,0.001], //position
+5,						  //Number Of units
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
+"Random",			      //Primary gun set number. "Random" for random weapon set.
+4,						  //Number of magazines
+"",						  //Backpack "" for random or classname here.
+"",						  //Skin "" for random or classname here.
+0				          //Gearset number. "Random" for random gear set.
+] call spawn_group;
+
+[[953.237,4486.48,0.001], //position
+5,						  //Number Of units
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
+"Random",			      //Primary gun set number. "Random" for random weapon set.
+4,						  //Number of magazines
+"",						  //Backpack "" for random or classname here.
+"",						  //Skin "" for random or classname here.
+0				          //Gearset number. "Random" for random gear set.
+] call spawn_group;
+
+[[953.237,4486.48,0.001], //position
+5,						  //Number Of units
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
+"Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
 "",						  //Skin "" for random or classname here.
@@ -275,12 +305,12 @@ ai_skin = [
 [0,0,0],                           //Starting position of the heli
 300,                               //Radius from drop position a player has to be to spawn chopper
 "UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
-3,                                 //Number of units to be para dropped
+10,                                 //Number of units to be para dropped
 1,                                 //Skill of para dropped units. No effect is using custom skills.
 "Random",                          //Primary gun set number. "Random" for random weapon set.
 4,                                 //Number of magazines
 "",                                //Backpack "" for random or classname here.
 "",                                //Skin "" for random or classname here.
 "Random",                          //Gearset number. "Random" for random gear set.
-false                              //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
+True                               //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
 ] spawn heli_para;
