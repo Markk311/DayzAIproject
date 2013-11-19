@@ -1,5 +1,5 @@
 if (!isServer)exitWith{};
-private ["_heliType","_startPos","_helicopter","_unitGroup","_pilot","_banditType","_turretCount","_crewCount"];
+private ["_heli_class","_startPos","_helicopter","_unitGroup","_pilot","_skill","_paranumber","_position","_wp1"];
 _position = _this select 0;
 _startingpos = _this select 1;
 _triggerdis = _this select 2;
@@ -56,7 +56,7 @@ _gunner2 assignAsGunner _helicopter;
 _gunner2 moveInTurret [_helicopter,[1]];
 [_gunner2] joinSilent _unitGroup;
 
-{_pilot setSkill [_x,_skill]} forEach _skillarray;
+{_pilot setSkill [_x,1]} forEach _skillarray;
 {_gunner setSkill [_x,_skill]} forEach _skillarray;
 {_gunner2 setSkill [_x,_skill]} forEach _skillarray;
 {_x addweapon "Makarov";_x addmagazine "8Rnd_9x18_Makarov";_x addmagazine "8Rnd_9x18_Makarov";} forEach (units _unitgroup);
@@ -152,9 +152,12 @@ while {(alive _helicopter) AND (_drop)} do {
 	};
 };
 if (_helipatrol) then { 
-	_wp1 = _grp addWaypoint [[(_postition select 0),(_postition select 1),0],20];
+	_wp1 = _unitGroup addWaypoint [[(_position select 0),(_position select 1)], 100];
 	_wp1 setWaypointType "SAD";
 	_wp1 setWaypointCompletionRadius 150;
+	_unitGroup setBehaviour "AWARE";
+	_unitGroup setSpeedMode "FULL";
+	_unitGroup setCombatMode "RED";
 } else {
 	{_x doMove [(_startingpos select 0), (_startingpos select 1), 100]} forEach (units _unitGroup);
 	_unitGroup setBehaviour "CARELESS";

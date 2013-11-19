@@ -1,17 +1,36 @@
+///////////////////////////////////////////////////////
+// Sets radius for AI patrols ///
 ai_patrol_radius = 300;
+
+// Sets number of waypoints to add in patrol area ///
 ai_patrol_radius_wp = 10;
+
+/// Sets behavior of AI groups ///
 ai_combatmode = "RED";
 ai_behaviour = "SAFE";
 
+///////////////////////////////////////////////////////
+/// Turn on AI info sharing ///
 ai_ahare_info = True;
+
+/// Distance AI will let other enemies know of your position (currently only on kill) ///
 ai_share_distance = 300;
 
+///////////////////////////////////////////////////////
+/// Gain humanity for killing an AI unit (True: is on. False: is off.) ///
 ai_humanity_gain = True;
+
+/// Humanity added for AI kill ///
 ai_add_humanity = 50;
+
+/// Adds bandit kill when killing an AI (True: on. False: off.)
 ai_banditkills_gain = True;
 
+///////////////////////////////////////////////////////
+/// Allows you to set a custom skill array for units. (True: will use these arrays. False: will use number in call array)
 ai_custom_skills = True;
 
+/// Custom skill array. Use 0 to use this with ai_custom_skills = True ///
 ai_custom_array1 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -25,6 +44,7 @@ ai_custom_array1 = [
 ["general",1.00]
 ];
 
+/// Custom skill array. Use 1 to use this with ai_custom_skills = True ///
 ai_custom_array2 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -38,6 +58,7 @@ ai_custom_array2 = [
 ["general",1.00]
 ];
 
+/// Custom skill array. Use 2 to use this with ai_custom_skills = True ///
 ai_custom_array3 = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -51,11 +72,17 @@ ai_custom_array3 = [
 ["general",1.00]
 ];
 
+/// Arrays used in "Random" custom skill ///
 ai_skill_random = [ai_custom_array1,ai_custom_array2,ai_custom_array3];
 
+///////////////////////////////////////////////////////
+/// Allows AI on static guns to have a loadout ///
 ai_static_useweapon = True;
+
+/// Allows you to set custom array for AI on static weapons. (True: On False: Off) ///
 ai_static_skills = True;
 
+/// Custom skill array. Use this with ai_static_skills = True ///
 ai_static_array = [
 ["aimingAccuracy",0.60],
 ["aimingShake",0.60],
@@ -69,33 +96,47 @@ ai_static_array = [
 ["general",1.00]
 ];
 
+///////////////////////////////////////////////////////
+/// Gearset arrays for unit Loadouts ///
+
+/// 0 ///
 ai_gear0 = [
 ["ItemBandage","ItemBandage","ItemPainkiller","SmokeShell","1Rnd_HE_M203"],
 ["ItemKnife","ItemFlashlight","ItemRadio"]
 ];
 
+/// 1 ///
 ai_gear1 = [
 ["ItemBandage","ItemBandage","ItemPainkiller"],
 ["ItemKnife","ItemFlashlight"]
 ];
 
+/// 2 ///
 ai_gear2 = [
 ["ItemBandage","ItemBandage","ItemPainkiller"],
 ["ItemKnife","ItemFlashlight"]
 ];
 
+/// 3 ///
 ai_gear3 = [
 ["ItemBandage","ItemBandage","ItemPainkiller"],
 ["ItemKnife","ItemFlashlight"]
 ];
 
+/// 4 ///
 ai_gear4 = [
 ["ItemBandage","ItemBandage","ItemPainkiller"],
 ["ItemKnife","ItemFlashlight"]
 ];
 
+/// Gearsets to use if set to "Random" ///
 ai_gear_random = [ai_gear0,ai_gear1,ai_gear2,ai_gear3,ai_gear4];
 
+///////////////////////////////////////////////////////
+/// Weapon arrays for unit Loadouts ///
+/// Format is ["Gun","Ammo"] ///
+
+/// 0 ///
 ai_wep0 = [
 ["AKS_74_UN_kobra","30Rnd_545x39_AKSD"], 
 ["M4A3_CCO_EP1","30Rnd_556x45_Stanag"], 
@@ -106,6 +147,7 @@ ai_wep0 = [
 ["Sa58V_CCO_EP1","30Rnd_762x39_AK47"]
 ];
 
+/// 1 ///
 ai_wep1 = [
 ["AK_107_pso","30Rnd_545x39_AK"], 
 ["M16A4_ACG","30Rnd_556x45_Stanag"], 
@@ -117,6 +159,7 @@ ai_wep1 = [
 ["M8_sharpshooter","30Rnd_556x45_Stanag"]
 ];
 
+/// 2 ///
 ai_wep2 = [
 ["AK_107_GL_pso","30Rnd_545x39_AK"], 
 ["AK_107_GL_kobra","30Rnd_545x39_AK"], 
@@ -128,6 +171,7 @@ ai_wep2 = [
 ["M4A3_RCO_GL_EP1","30Rnd_556x45_Stanag"]
 ];
 
+/// 3 ///
 ai_wep3 = [
 ["KSVK","5Rnd_127x108_KSVK"], 
 ["SCAR_H_STD_EGLM_Spect","20rnd_762x51_B_SCAR"], 
@@ -140,6 +184,7 @@ ai_wep3 = [
 ["M40A3","5Rnd_762x51_M24"]
 ];
 
+/// 4 ///
 ai_wep4 = [
 ["RPK_74","75Rnd_545x39_RPK"], 
 ["MK_48_DZ","100Rnd_762x51_M240"], 
@@ -148,8 +193,11 @@ ai_wep4 = [
 ["M240_DZ","100Rnd_762x51_M240"]
 ];
 
+/// Arrays used in "Random" ///
 ai_wep_random = [ai_wep0,ai_wep1,ai_wep2,ai_wep3,ai_wep4];
 
+///////////////////////////////////////////////////////
+/// Backpacks used when "" for random ///
 ai_packs = [
 "DZ_Patrol_Pack_EP1",
 "DZ_Assault_Pack_EP1",
@@ -165,6 +213,8 @@ ai_packs = [
 "DZ_LargeGunBag_EP1"
 ];
 
+///////////////////////////////////////////////////////
+/// Skins used when "" for random ///
 ai_skin = [
 "Bandit1_DZ",
 "BanditW1_DZ",
@@ -202,17 +252,18 @@ ai_skin = [
 ];
 
 [[[911.21545,4532.7612,2.6292224],[921.21545,4532.7612,0]], //position(s) (can be multiple).
-0.2,					  //Skill level 0-1. Has no effect if using custom skills
+"M2StaticMG",             //Classname of turret
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
 "",				          //Skin "" for random or classname here.
-1,						  //Primary gun set number. "Random" for random weapon set.
-2,						  //Number of magazines.
-"",						  //Backpack "" for random or classname here.
-"Random"				  //Gearset number. "Random" for random gear set.
+1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
+2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
+"",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
+"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
 ] call spawn_static;  
 
 [[953.237,4486.48,0.001], //position
 3,						  //Number Of units
-0.2,					  //Skill level 0-1. Has no effect if using custom skills
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
 2,						  //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
@@ -220,28 +271,16 @@ ai_skin = [
 0				          //Gearset number. "Random" for random gear set.
 ] call spawn_group;
 
-[[953.237,4386.48,0.001], //position
-3,						  //Number Of units
-0.2,					  //Skill level 0-1. Has no effect if using custom skills
-2,						  //Primary gun set number. "Random" for random weapon set.
-4,						  //Number of magazines
-"",						  //Backpack "" for random or classname here.
-"",						  //Skin "" for random or classname here.
-0				  //Gearset number. "Random" for random gear set.
-] call spawn_group;
-
-[[911.21545,4532.7612,2.6292224],
-[1911.21545,4532.7612,2.6292224],
-300,
-"UH1H_DZ",
-3,
-1,
-"Random",
-4,
-"",
-"",
-"Random",
-true
+[[911.21545,4532.7612,2.6292224],  //Position that units will be dropped by
+[0,0,0],                           //Starting position of the heli
+300,                               //Radius from drop position a player has to be to spawn chopper
+"UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
+3,                                 //Number of units to be para dropped
+1,                                 //Skill of para dropped units. No effect is using custom skills.
+"Random",                          //Primary gun set number. "Random" for random weapon set.
+4,                                 //Number of magazines
+"",                                //Backpack "" for random or classname here.
+"",                                //Skin "" for random or classname here.
+"Random",                          //Gearset number. "Random" for random gear set.
+false                              //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
 ] spawn heli_para;
-
-//ExecVM "\z\addons\dayz_server\compile\AI\Scripts\heli_para.sqf";

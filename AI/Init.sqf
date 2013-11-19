@@ -1,11 +1,11 @@
 
 
-spawn_group = 	compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\Scripts\SpawnGroup.sqf";
-group_waypoints = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\Scripts\patrol.sqf";
-spawn_static  = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\Scripts\SpawnStatic.sqf";
-heli_para  = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\Scripts\heli_para.sqf";
+spawn_group = 	compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\compile\SpawnGroup.sqf";
+group_waypoints = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\compile\patrol.sqf";
+spawn_static  = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\compile\SpawnStatic.sqf";
+heli_para  = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\compile\heli_para.sqf";
 
-on_kill = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\Scripts\ai_killed.sqf";
+on_kill = compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\compile\ai_killed.sqf";
 
 createCenter east;
 WEST setFriend [EAST,0];

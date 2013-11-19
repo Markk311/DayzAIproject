@@ -1,12 +1,13 @@
-private ["_position2","_direction","_static","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
+private ["_class","_position2","_direction","_static","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
 _position = _this select 0;
-_skill = _this select 1;
-_skin = _this select 2;
+_class = _this select 1;
+_skill = _this select 2;
+_skin = _this select 3;
 if (ai_static_useweapon) then {
-	_gun = _this select 3;
-	_mags = _this select 4;
-	_backpack = _this select 5;
-	_gear = _this select 6;
+	_gun = _this select 4;
+	_mags = _this select 5;
+	_backpack = _this select 6;
+	_gear = _this select 7;
 };
 _position2 = [];
 _aiweapon = [];
@@ -27,7 +28,7 @@ if (_skin == "") then {
 	_aiskin = _skin
 };
 _unit = _unitGroup createUnit [_aiskin, [0,0,0], [], 10, "PRIVATE"];
-_static = createVehicle ["M2StaticMG", [(_position2 select 0),(_position2 select 1),(_position2 select 2)], [], 0, "CAN_COLLIDE"];
+_static = createVehicle [_class, [(_position2 select 0),(_position2 select 1),(_position2 select 2)], [], 0, "CAN_COLLIDE"];
 _static setDir round(random 360);
 _static setPos [(_position2 select 0),(_position2 select 1),(_position2 select 2)];
 [_unit] joinSilent _unitGroup;
