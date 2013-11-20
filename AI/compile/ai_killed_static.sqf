@@ -1,6 +1,6 @@
 _unit = _this select 0;
 _player = _this select 1;
-ai_ground_units = (ai_ground_units -1);
+ai_emplacement_units = (ai_emplacement_units -1);
 if (isPlayer _player) then {
 	private ["_banditkills","_humanity"];
 	_humanity = _player getVariable["humanity",0];

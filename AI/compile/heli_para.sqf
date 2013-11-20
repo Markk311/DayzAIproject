@@ -20,7 +20,7 @@ _aicskill = [];
 _skillarray = ["aimingAccuracy","aimingShake","aimingSpeed","endurance","spotDistance","spotTime","courage","reloadSpeed","commanding","general"];
 
 // wait for player to come into area.
-diag_log "Paradrop Waiting for trigger";
+diag_log "WAI: Paradrop Waiting for player";
 waitUntil
 {
 	sleep 10;
@@ -31,10 +31,11 @@ waitUntil
 //Delay before chopper spawns in.
 //sleep _delay;
 //Spawing in Chopper and crew
-diag_log format ["Spawning a %1 with %2 units to be paradropped at %3",_heli_class,_paranumber,_position];
+diag_log format ["WAI: Spawning a %1 with %2 units to be paradropped at %3",_heli_class,_paranumber,_position];
 _unitGroup = createGroup east;
 _pilot = _unitGroup createUnit ["Bandit1_DZ", [0,0,0], [], 1, "NONE"];
 [_pilot] joinSilent _unitGroup;
+ai_air_units = (ai_air_units +1);
 
 _helicopter = createVehicle [_heli_class, [(_startingpos select 0),(_startingpos select 1), 100], [], 0, "FLY"];
 _helicopter setFuel 1;
@@ -50,17 +51,19 @@ _gunner = _unitGroup createUnit ["Bandit1_DZ", [0,0,0], [], 1, "NONE"];
 _gunner assignAsGunner _helicopter;
 _gunner moveInTurret [_helicopter,[0]];
 [_gunner] joinSilent _unitGroup;
+ai_air_units = (ai_air_units +1);
 
 _gunner2 = _unitGroup createUnit ["Bandit1_DZ", [0,0,0], [], 1, "NONE"];
 _gunner2 assignAsGunner _helicopter;
 _gunner2 moveInTurret [_helicopter,[1]];
 [_gunner2] joinSilent _unitGroup;
+ai_air_units = (ai_air_units +1);
 
 {_pilot setSkill [_x,1]} forEach _skillarray;
 {_gunner setSkill [_x,0.7]} forEach _skillarray;
 {_gunner2 setSkill [_x,0.7]} forEach _skillarray;
 {_x addweapon "Makarov";_x addmagazine "8Rnd_9x18_Makarov";_x addmagazine "8Rnd_9x18_Makarov";} forEach (units _unitgroup);
-{_x addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];} forEach (units _unitgroup);
+PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_helicopter];
 
 _unitGroup allowFleeing 0;
 _unitGroup setBehaviour "CARELESS";
@@ -140,6 +143,7 @@ while {(alive _helicopter) AND (_drop)} do {
 			} else {
 				{_para setSkill [_x,_skill]} forEach _skillarray;
 			};
+			ai_ground_units = (ai_ground_units + 1);
 			_para addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];
 			_chute = createVehicle ["ParachuteEast", [(_helipos select 0), (_helipos select 1), (_helipos select 2)], [], 0, "NONE"];
 			_para moveInDriver _chute;
@@ -147,7 +151,7 @@ while {(alive _helicopter) AND (_drop)} do {
 		};
 		_drop = false;
 		_pgroup selectLeader ((units _pgroup) select 0);
-		diag_log format ["Spawned in %1 ai units for paradrop",_paranumber];
+		diag_log format ["WAI: Spawned in %1 ai units for paradrop",_paranumber];
 		[_pgroup, _position] call group_waypoints;
 	};
 };
@@ -158,6 +162,7 @@ if (_helipatrol) then {
 	_unitGroup setBehaviour "AWARE";
 	_unitGroup setSpeedMode "FULL";
 	_unitGroup setCombatMode "RED";
+	{_x addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill_chopper;}];} forEach (units _unitgroup);
 } else {
 	{_x doMove [(_startingpos select 0), (_startingpos select 1), 100]} forEach (units _unitGroup);
 	_unitGroup setBehaviour "CARELESS";
@@ -171,7 +176,8 @@ if (_helipatrol) then {
 			{deleteVehicle _x} forEach (units _unitgroup);
 			sleep 10;
 			deleteGroup _unitGroup;
-			diag_log "Paradrop cleaned up";
+			ai_air_units = (ai_air_units -3);
+			diag_log "WAI: Paradrop cleaned up";
 		};
 		
 	};

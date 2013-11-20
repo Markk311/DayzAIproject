@@ -268,7 +268,8 @@ ai_skin = [
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
 "",						  //Skin "" for random or classname here.
-0				          //Gearset number. "Random" for random gear set.
+0,                        //Gearset number. "Random" for random gear set.
+false			          //used for missions (leave false).
 ] call spawn_group;
 
 [[953.237,4486.48,0.001], //position
@@ -278,7 +279,8 @@ ai_skin = [
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
 "",						  //Skin "" for random or classname here.
-0				          //Gearset number. "Random" for random gear set.
+0,				          //Gearset number. "Random" for random gear set.
+false                     //used for missions (leave false).
 ] call spawn_group;
 
 [[953.237,4486.48,0.001], //position
@@ -288,7 +290,8 @@ ai_skin = [
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
 "",						  //Skin "" for random or classname here.
-0				          //Gearset number. "Random" for random gear set.
+0,				          //Gearset number. "Random" for random gear set.
+false                     //used for missions (leave false).
 ] call spawn_group;
 
 [[953.237,4486.48,0.001], //position
@@ -298,7 +301,8 @@ ai_skin = [
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
 "",						  //Skin "" for random or classname here.
-0				          //Gearset number. "Random" for random gear set.
+0,				          //Gearset number. "Random" for random gear set.
+false                     //used for missions (leave false).
 ] call spawn_group;
 
 [[911.21545,4532.7612,2.6292224],  //Position that units will be dropped by

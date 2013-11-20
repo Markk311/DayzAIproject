@@ -1,4 +1,4 @@
-private ["_aicskill","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
+private ["_mission","_aipack","_aicskill","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
 _position = _this select 0;
 _unitnumber = _this select 1;
 _skill = _this select 2;
@@ -7,11 +7,14 @@ _mags = _this select 4;
 _backpack = _this select 5;
 _skin = _this select 6;
 _gear = _this select 7;
+_mission = _this select 8;
+
 
 _aiweapon = [];
 _aigear = [];
 _aiskin = "";
 _aicskill = [];
+_aipack = "";
 _skillarray = ["aimingAccuracy","aimingShake","aimingSpeed","endurance","spotDistance","spotTime","courage","reloadSpeed","commanding","general"];
 _unitGroup = createGroup east;
 
@@ -76,7 +79,9 @@ for "_x" from 1 to _unitnumber do {
 	} else {
 		{_unit setSkill [_x,_skill]} forEach _skillarray;
 	};
+	ai_ground_units = (ai_ground_units + 1);
 	_unit addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];
 };
 _unitGroup selectLeader ((units _unitGroup) select 0);
-[_unitGroup, _position] call group_waypoints;
+[_unitGroup, _position, _mission] call group_waypoints;
+diag_log format ["WAI: Spawned a group of %1 Bandits at %2",_unitnumber,_position];

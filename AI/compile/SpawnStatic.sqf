@@ -1,4 +1,4 @@
-private ["_class","_position2","_direction","_static","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
+private ["_aipack","_class","_position2","_direction","_static","_position","_unitnumber","_skill","_gun","_mags","_backpack","_skin","_gear","_aiweapon","_aigear","_aiskin","_skillarray","_unitGroup","_weapon","_magazine","_weaponandmag","_gearmagazines","_geartools","_unit"];
 _position = _this select 0;
 _class = _this select 1;
 _skill = _this select 2;
@@ -13,6 +13,7 @@ _position2 = [];
 _aiweapon = [];
 _aigear = [];
 _aiskin = "";
+_aipack = "";
 _skillarray = ["aimingAccuracy","aimingShake","aimingSpeed","endurance","spotDistance","spotTime","courage","reloadSpeed","commanding","general"];
 _unitGroup = createGroup east;
 _unitnumber = count _position;
@@ -79,8 +80,11 @@ if (ai_static_skills) then {
 } else {
 	{_unit setSkill [_x,_skill]} forEach _skillarray;
 };
-_unit addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];
-_static addEventHandler ["GetOut",{(_this select 0) setDamage 1;}];
+ai_emplacement_units = (ai_emplacement_units + 1);
+_unit addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill_static;}];
+//_static addEventHandler ["GetOut",{(_this select 0) setDamage 1;}];
+PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_static];
 _unit moveingunner _static;
 } forEach _position;
 _unitGroup selectLeader ((units _unitGroup) select 0);
+diag_log format ["WAI: Sapwned in %1 %2",_unitnumber,_class];
