@@ -1,7 +1,7 @@
 private ["_vehname","_veh","_position","_vehclass","_vehdir","_objPosition"];
 
 
-_vehclass = armed_vehicle call BIS_fnc_selectRandom;
+_vehclass = civil_aircraft call BIS_fnc_selectRandom;
 
 _vehname	= getText (configFile >> "CfgVehicles" >> _vehclass >> "displayName");
 _position = [getMarkerPos "center",0,5500,10,0,2000,0] call BIS_fnc_findSafePos;
@@ -23,7 +23,7 @@ _rndnum,						  //Number Of units
 "Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
-"Bandit2_DZ",						  //Skin "" for random or classname here.
+"Bandit2_DZ",			  //Skin "" for random or classname here.
 "Random",				  //Gearset number. "Random" for random gear set.
 true
 ] call spawn_group;

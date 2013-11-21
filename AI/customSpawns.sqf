@@ -125,3 +125,13 @@ True                               //True: Heli will stay at position and fight.
 "Random",                          //Gearset number. "Random" for random gear set.
 True                               //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
 ] spawn heli_para;
+
+[[[13680.985, 2958.7622, 8.8380222],[13700.848, 2891.2732, 12.741931],[13719.417, 2882.5188, 2.700685],[13678.152, 2903.9219, 2.7743211],[13691.338, 2965.5811, 8.7748051],[13757.332, 2909.4739, -9.1552734e-005]], //position(s) (can be multiple).
+"M2StaticMG",             //Classname of turret
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
+"Bandit2_DZ",				          //Skin "" for random or classname here.
+1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
+2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
+"",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
+"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+] call spawn_static;  

@@ -62,7 +62,7 @@ refuel_trucks = [
 "KamazRefuel_DZ"
 ];
 
-civil_vehicles [
+civil_vehicles = [
 "hilux1_civil_1_open",
 "hilux1_civil_2_covered",
 "hilux1_civil_3_open_EP1",

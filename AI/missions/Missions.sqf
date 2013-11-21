@@ -2,7 +2,7 @@ if(!isServer) exitWith {};
 
 diag_log ["WAI: Starting AI Missions Moniter"];
 
-_missionarray = ["armed_vehicle"];
+_missionarray = ["armed_vehicle","crash_spawner","disabled_civchopper","disabled_milchopper"];
 
 markerready = true;
 missionrunning = false;
@@ -13,7 +13,7 @@ while {true} do
 {
 	_cnt = {alive _x} count playableUnits;
 	_currTime = floor(time);
-	if((_currTime - _startTime >= 30) AND (!missionrunning)) then {_result = 1};
+	if((_currTime - _startTime >= 60) AND (!missionrunning)) then {_result = 1};
 	
 	if(missionrunning) then
 	{
