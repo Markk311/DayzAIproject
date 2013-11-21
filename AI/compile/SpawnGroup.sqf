@@ -7,8 +7,11 @@ _mags = _this select 4;
 _backpack = _this select 5;
 _skin = _this select 6;
 _gear = _this select 7;
-_mission = _this select 8;
-
+if (count _this > 8) then {
+	_mission = _this select 8;
+} else {
+	_mission = False;
+};
 
 _aiweapon = [];
 _aigear = [];
@@ -84,4 +87,5 @@ for "_x" from 1 to _unitnumber do {
 };
 _unitGroup selectLeader ((units _unitGroup) select 0);
 [_unitGroup, _position, _mission] call group_waypoints;
+
 diag_log format ["WAI: Spawned a group of %1 Bandits at %2",_unitnumber,_position];

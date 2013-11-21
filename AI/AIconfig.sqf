@@ -46,8 +46,8 @@ ai_custom_array1 = [
 
 /// Custom skill array. Use 1 to use this with ai_custom_skills = True 
 ai_custom_array2 = [
-["aimingAccuracy",0.60],
-["aimingShake",0.60],
+["aimingAccuracy",0.15],
+["aimingShake",0.20],
 ["aimingSpeed",1.00],
 ["endurance",1.00],
 ["spotDistance",1.00],
@@ -84,9 +84,9 @@ ai_static_skills = True;
 
 /// Custom skill array. Use this with ai_static_skills = True 
 ai_static_array = [
-["aimingAccuracy",0.60],
-["aimingShake",0.60],
-["aimingSpeed",1.00],
+["aimingAccuracy",0.15],
+["aimingShake",0.20],
+["aimingSpeed",0.50],
 ["endurance",1.00],
 ["spotDistance",1.00],
 ["spotTime",1.00],
@@ -172,14 +172,12 @@ ai_wep2 = [
 ];
 
 /// 3 ///
-ai_wep3 = [
-["KSVK","5Rnd_127x108_KSVK"], 
+ai_wep3 = [ 
 ["SCAR_H_STD_EGLM_Spect","20rnd_762x51_B_SCAR"], 
 ["M110_NVG_EP1","20rnd_762x51_B_SCAR"], 
 ["SCAR_H_LNG_Sniper_SD","20rnd_762x51_SB_SCAR"], 
 ["SVD_CAMO","10Rnd_762x54_SVD"], 
 ["VSS_Vintorez","20Rnd_9x39_SP5_VSS"], 
-["BAF_LRR_scoped","5Rnd_86x70_L115A1"], 
 ["DMR","20Rnd_762x51_DMR"], 
 ["M40A3","5Rnd_762x51_M24"]
 ];
@@ -250,71 +248,6 @@ ai_skin = [
 "Bandit2_DZ",
 "SurvivorWcombat_DZ"
 ];
-
-[[[911.21545,4532.7612,2.6292224],[921.21545,4532.7612,0]], //position(s) (can be multiple).
-"M2StaticMG",             //Classname of turret
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"",				          //Skin "" for random or classname here.
-1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
-2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
-"",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
-"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
-] call spawn_static;  
-
-[[953.237,4486.48,0.001], //position
-5,						  //Number Of units
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"Random",			      //Primary gun set number. "Random" for random weapon set.
-4,						  //Number of magazines
-"",						  //Backpack "" for random or classname here.
-"",						  //Skin "" for random or classname here.
-0,                        //Gearset number. "Random" for random gear set.
-false			          //used for missions (leave false).
-] call spawn_group;
-
-[[953.237,4486.48,0.001], //position
-5,						  //Number Of units
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"Random",			      //Primary gun set number. "Random" for random weapon set.
-4,						  //Number of magazines
-"",						  //Backpack "" for random or classname here.
-"",						  //Skin "" for random or classname here.
-0,				          //Gearset number. "Random" for random gear set.
-false                     //used for missions (leave false).
-] call spawn_group;
-
-[[953.237,4486.48,0.001], //position
-5,						  //Number Of units
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"Random",			      //Primary gun set number. "Random" for random weapon set.
-4,						  //Number of magazines
-"",						  //Backpack "" for random or classname here.
-"",						  //Skin "" for random or classname here.
-0,				          //Gearset number. "Random" for random gear set.
-false                     //used for missions (leave false).
-] call spawn_group;
-
-[[953.237,4486.48,0.001], //position
-5,						  //Number Of units
-0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"Random",			      //Primary gun set number. "Random" for random weapon set.
-4,						  //Number of magazines
-"",						  //Backpack "" for random or classname here.
-"",						  //Skin "" for random or classname here.
-0,				          //Gearset number. "Random" for random gear set.
-false                     //used for missions (leave false).
-] call spawn_group;
-
-[[911.21545,4532.7612,2.6292224],  //Position that units will be dropped by
-[0,0,0],                           //Starting position of the heli
-300,                               //Radius from drop position a player has to be to spawn chopper
-"UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
-10,                                 //Number of units to be para dropped
-1,                                 //Skill of para dropped units. No effect is using custom skills.
-"Random",                          //Primary gun set number. "Random" for random weapon set.
-4,                                 //Number of magazines
-"",                                //Backpack "" for random or classname here.
-"",                                //Skin "" for random or classname here.
-"Random",                          //Gearset number. "Random" for random gear set.
-True                               //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
-] spawn heli_para;
+//////////////////////////////////////////////////////
+//Done loading
+loadedconfig = True;

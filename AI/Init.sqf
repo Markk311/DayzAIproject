@@ -13,13 +13,20 @@ createCenter east;
 WEST setFriend [EAST,0];
 EAST setFriend [WEST,0];
 
+loadedconfig = false;
+loadedmissioncfg = false;
+
 ai_ground_units = 0;
 ai_emplacement_units = 0;
 ai_air_units = 0;
 
+//Load AI mission system
+[] ExecVM "\z\addons\dayz_server\compile\AI\missions\missionIni.sqf";
 //Load config
 [] ExecVM "\z\addons\dayz_server\compile\AI\AIconfig.sqf";
-
-[] ExecVM "\z\addons\dayz_server\compile\AI\missions\Missions.sqf";
-
+//Wait for config
+waitUntil{loadedconfig};
+diag_log "WAI: AI Config File Loaded";
 [] spawn ai_monitor;
+//Load custom spawns
+[] ExecVM "\z\addons\dayz_server\compile\AI\customSpawns.sqf";

@@ -1,5 +1,5 @@
 if (!isServer)exitWith{};
-private ["_heli_class","_startPos","_helicopter","_unitGroup","_pilot","_skill","_paranumber","_position","_wp1"];
+private ["_pgroup","_drop","_helipos","_gunner2","_gunner","_playerPresent","_skillarray","_aicskill","_aiskin","_aigear","_helipatrol","_gear","_skin","_backpack","_mags","_gun","_triggerdis","_startingpos","_aiweapon","_mission","_heli_class","_startPos","_helicopter","_unitGroup","_pilot","_skill","_paranumber","_position","_wp1"];
 _position = _this select 0;
 _startingpos = _this select 1;
 _triggerdis = _this select 2;
@@ -12,6 +12,11 @@ _backpack = _this select 8;
 _skin = _this select 9;
 _gear = _this select 10;
 _helipatrol = _this select 11;
+if (count _this > 12) then {
+	_mission = _this select 12;
+} else {
+	_mission = False;
+};
 //_delay = _this select 12;
 _aiweapon = [];
 _aigear = [];
@@ -78,10 +83,10 @@ _wp setWaypointCompletionRadius 100;
 _drop = True;
 _helipos = getpos _helicopter;
 while {(alive _helicopter) AND (_drop)} do {
-	private ["_chute","_para"];
+	private ["_magazine","_weapon","_weaponandmag","_chute","_para"];
 	sleep 1;
 	_helipos = getpos _helicopter;
-	if (_helipos distance [(_position select 0),(_position select 1),100] <= _triggerdis) then {
+	if (_helipos distance [(_position select 0),(_position select 1),100] <= 100) then {
 		_pgroup = createGroup east;
 		for "_x" from 1 to _paranumber do {
 			sleep 1.5;
@@ -152,7 +157,7 @@ while {(alive _helicopter) AND (_drop)} do {
 		_drop = false;
 		_pgroup selectLeader ((units _pgroup) select 0);
 		diag_log format ["WAI: Spawned in %1 ai units for paradrop",_paranumber];
-		[_pgroup, _position] call group_waypoints;
+		[_pgroup, _position,_mission] call group_waypoints;
 	};
 };
 if (_helipatrol) then { 
