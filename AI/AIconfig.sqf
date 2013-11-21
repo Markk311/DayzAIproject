@@ -1,8 +1,18 @@
+
 ///////////////////////////////////////////////////////
-// Sets radius for AI patrols 
+/// clears all Weapons and Magazines off body on death
+ai_clear_body = False;
+
+/// Clears dead bodies after given time
+ai_clean_dead = True;
+
+/// Time (in seconds) after which a dead body will be cleaned up
+cleanup_time = 1800;
+///////////////////////////////////////////////////////
+/// Sets radius for AI patrols 
 ai_patrol_radius = 300;
 
-// Sets number of waypoints to add in patrol area 
+/// Sets number of waypoints to add in patrol area 
 ai_patrol_radius_wp = 10;
 
 /// Sets behavior of AI groups 
@@ -10,7 +20,7 @@ ai_combatmode = "RED";
 ai_behaviour = "SAFE";
 
 ///////////////////////////////////////////////////////
-/// Turn on AI info sharing 
+/// Turns on AI info sharing 
 ai_ahare_info = True;
 
 /// Distance AI will let other enemies know of your position (currently only on kill) 
@@ -82,7 +92,7 @@ ai_static_useweapon = True;
 /// Allows you to set custom array for AI on static weapons. (True: On False: Off) 
 ai_static_skills = True;
 
-/// Custom skill array. Use this with ai_static_skills = True 
+/// Custom skill array. Use this with ai_static_skills = True;
 ai_static_array = [
 ["aimingAccuracy",0.15],
 ["aimingShake",0.20],
@@ -191,7 +201,7 @@ ai_wep4 = [
 ["M240_DZ","100Rnd_762x51_M240"]
 ];
 
-/// Arrays used in "Random" ///
+/// Arrays used in "Random" for weapons///
 ai_wep_random = [ai_wep0,ai_wep1,ai_wep2,ai_wep3,ai_wep4];
 
 ///////////////////////////////////////////////////////
