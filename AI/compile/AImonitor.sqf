@@ -10,7 +10,10 @@ while {true} do {
 			if (!isNil "_killedat") then {
 				if ((time - _killedat) >= cleanup_time) then {
 					deleteVehicle _x;
+				};
+			};
 	} forEach allDead;
+	
 	};
 
 	
