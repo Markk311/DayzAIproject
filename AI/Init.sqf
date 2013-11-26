@@ -25,8 +25,8 @@ ai_air_units = 0;
 //Load config
 [] ExecVM "\z\addons\dayz_server\compile\AI\AIconfig.sqf";
 //Wait for config
-waitUntil{loadedconfig};
 diag_log "WAI: AI Config File Loaded";
 [] spawn ai_monitor;
 //Load custom spawns
 [] ExecVM "\z\addons\dayz_server\compile\AI\customSpawns.sqf";
+//call compile preprocessFileLineNumbers "\z\addons\dayz_server\compile\AI\customSpawns.sqf";

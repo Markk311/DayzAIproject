@@ -1,3 +1,4 @@
+
 [[[911.21545,4532.7612,2.6292224]], //position(s) (can be multiple).
 "M2StaticMG",             //Classname of turret
 0.5,					  //Skill level 0-1. Has no effect if using custom skills

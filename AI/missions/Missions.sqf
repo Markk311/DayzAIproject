@@ -13,7 +13,7 @@ while {true} do
 {
 	_cnt = {alive _x} count playableUnits;
 	_currTime = floor(time);
-	if((_currTime - _startTime >= 60) AND (!missionrunning)) then {_result = 1};
+	if((_currTime - _startTime >= 1800) AND (!missionrunning)) then {_result = 1};
 	
 	if(missionrunning) then
 	{
