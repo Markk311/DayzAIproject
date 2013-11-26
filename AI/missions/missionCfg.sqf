@@ -135,5 +135,3 @@ ammo_box_tools =[
 "NVGoggles"
 ];
 //////////////////////////////////////////////////////////////////////
-loadedmissioncfg = True;
-[[5155.55,6821.52,0]] call spawn_ammo_box;

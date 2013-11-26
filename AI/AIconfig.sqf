@@ -259,5 +259,3 @@ ai_skin = [
 "SurvivorWcombat_DZ"
 ];
 //////////////////////////////////////////////////////
-//Done loading
-loadedconfig = True;

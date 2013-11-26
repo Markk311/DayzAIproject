@@ -2,7 +2,7 @@ if(!isServer) exitWith {};
 
 diag_log ["WAI: Starting AI Missions Moniter"];
 
-_missionarray = ["armed_vehicle","crash_spawner","disabled_civchopper","disabled_milchopper","MV22"];
+_missionarray = ["armed_vehicle","crash_spawner","disabled_civchopper","disabled_milchopper","MV22","weapon_cache"];
 
 markerready = true;
 missionrunning = false;

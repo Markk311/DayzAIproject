@@ -13,8 +13,6 @@ createCenter east;
 WEST setFriend [EAST,0];
 EAST setFriend [WEST,0];
 
-loadedconfig = false;
-loadedmissioncfg = false;
 
 ai_ground_units = 0;
 ai_emplacement_units = 0;
