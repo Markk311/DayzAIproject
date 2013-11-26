@@ -54,7 +54,7 @@ if ((random 2) < 1) then {
 	] spawn heli_para;
 };
 
-[_position,"Weapon cache"] execVM "\z\addons\dayz_server\compile\AI\missions\compile\markers.sqf";
+[_position,"Weapon cache"] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
 [nil,nil,rTitleText,"Bandits have obtained a weapon cache! Check your map for the location!", "PLAIN",10] call RE;
 
 waitUntil

@@ -108,7 +108,7 @@ if ((random 3) < 1) then {
 	"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
 	] call spawn_static;  
 };
-[_position,"Chopper Crash"] execVM "\z\addons\dayz_server\compile\AI\missions\compile\markers.sqf";
+[_position,"Chopper Crash"] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
 [nil,nil,rTitleText,"Bandits have crashed a chopper! Check your map for the location!", "PLAIN",10] call RE;
 waitUntil
 {

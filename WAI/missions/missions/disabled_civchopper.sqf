@@ -40,7 +40,7 @@ if ((random 5) < 1) then {
 	] call spawn_static;  
 };
 
-[_position,_vehname] execVM "\z\addons\dayz_server\compile\AI\missions\compile\markers.sqf";
+[_position,_vehname] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
 [nil,nil,rTitleText,"Bandits have disabled a Civilian Chopper! Check your map for the location!", "PLAIN",10] call RE;
 
 waitUntil

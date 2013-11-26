@@ -23,7 +23,7 @@ while {true} do
 	if((_result == 1) AND (_cnt >= 1) AND (markerready))  then
     {
         _mission = _missionarray select (random (count _missionarray - 1));
-        execVM format ["\z\addons\dayz_server\compile\AI\missions\missions\%1.sqf",_mission];
+        execVM format ["\z\addons\dayz_server\WAI\missions\missions\%1.sqf",_mission];
 		missionrunning = true;
         diag_log format["WAI: Starting Mission %1",_mission];
         _startTime = floor(time);
