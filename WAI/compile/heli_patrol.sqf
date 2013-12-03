@@ -6,6 +6,7 @@ _radius = _this select 2;
 _wpnum = _this select 3;
 _heli_class = _this select 4;
 _skill = _this select 5;
+
 _skillarray = ["aimingAccuracy","aimingShake","aimingSpeed","endurance","spotDistance","spotTime","courage","reloadSpeed","commanding","general"];
 
 _unitGroup = createGroup east;

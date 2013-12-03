@@ -1,3 +1,6 @@
+///////////////////////////////////////////////////////
+///Use the built in mission system (config file for mission system in mission folder)
+ai_mission_sysyem = True;
 
 ///////////////////////////////////////////////////////
 /// clears all Weapons and Magazines off body on death
@@ -9,10 +12,10 @@ ai_clean_dead = True;
 /// Time (in seconds) after which a dead body will be cleaned up
 cleanup_time = 1800;
 ///////////////////////////////////////////////////////
-/// Sets radius for AI patrols 
+/// Sets radius for AI patrols (call spawn_group)
 ai_patrol_radius = 300;
 
-/// Sets number of waypoints to add in patrol area 
+/// Sets number of waypoints to add in patrol area (call spawn_group)
 ai_patrol_radius_wp = 10;
 
 /// Sets behavior of AI groups 
@@ -20,7 +23,7 @@ ai_combatmode = "RED";
 ai_behaviour = "SAFE";
 
 ///////////////////////////////////////////////////////
-/// Turns on AI info sharing 
+/// Turns on AI info sharing (Makes them very hard even on low skill settings)
 ai_ahare_info = True;
 
 /// Distance AI will let other enemies know of your position (currently only on kill) 
@@ -37,7 +40,7 @@ ai_add_humanity = 50;
 ai_banditkills_gain = True;
 
 ///////////////////////////////////////////////////////
-/// Allows you to set a custom skill array for units. (True: will use these arrays. False: will use number in call array)
+/// Allows you to set a custom skill array for units. (True: will use these arrays. False: will use number in spawn array)
 ai_custom_skills = True;
 
 /// Custom skill array. Use 0 to use this with ai_custom_skills = True 
@@ -111,8 +114,8 @@ ai_static_array = [
 
 /// 0 ///
 ai_gear0 = [
-["ItemBandage","ItemBandage","ItemPainkiller","SmokeShell","1Rnd_HE_M203"],
-["ItemKnife","ItemFlashlight","ItemRadio"]
+["ItemBandage","ItemBandage","ItemPainkiller"],
+["ItemKnife","ItemFlashlight"]
 ];
 
 /// 1 ///

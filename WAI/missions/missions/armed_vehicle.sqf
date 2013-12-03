@@ -25,7 +25,7 @@ _rndnum,						  //Number Of units
 "",						  //Backpack "" for random or classname here.
 "Bandit2_DZ",						  //Skin "" for random or classname here.
 "Random",				  //Gearset number. "Random" for random gear set.
-true
+true					  // Mission true or false
 ] call spawn_group;
 
 [[_position select 0, _position select 1, 0],                  //position
@@ -34,9 +34,9 @@ true
 "Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
-"Bandit2_DZ",						  //Skin "" for random or classname here.
+"Bandit2_DZ",			  //Skin "" for random or classname here.
 "Random",				  //Gearset number. "Random" for random gear set.
-true
+true					  // Mission true or false
 ] call spawn_group;
 
 [[[(_position select 0), (_position select 1) + 10, 0]], //position(s) (can be multiple).
