@@ -259,3 +259,4 @@ ai_skin = [
 "SurvivorWcombat_DZ"
 ];
 //////////////////////////////////////////////////////
+WAIconfigloaded = True;

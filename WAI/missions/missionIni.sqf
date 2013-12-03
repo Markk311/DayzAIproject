@@ -4,5 +4,6 @@ spawn_ammo_box  = compile preprocessFileLineNumbers "\z\addons\dayz_server\WAI\m
 
 //load mission config
 [] ExecVM "\z\addons\dayz_server\WAI\missions\missionCfg.sqf";
+waitUntil {WAImissionconfig};
 diag_log "WAI: Mission Config File Loaded";
 [] ExecVM "\z\addons\dayz_server\WAI\missions\missions.sqf";

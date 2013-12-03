@@ -1,24 +1,44 @@
 private ["_vehname","_veh","_position","_vehclass","_vehdir","_objPosition"];
 
 
-_vehclass = armed_chopper call BIS_fnc_selectRandom;
+_vehclass = cargo_trucks call BIS_fnc_selectRandom;
+_vehclass2 = refuel_trucks call BIS_fnc_selectRandom;
+_vehclass3 = military_unarmed call BIS_fnc_selectRandom;
 
-_vehname	= getText (configFile >> "CfgVehicles" >> _vehclass >> "displayName");
 _position = [getMarkerPos "center",0,5500,10,0,2000,0] call BIS_fnc_findSafePos;
-diag_log format["WAI: Mission Armed Chopper Started At %1",_position];
+diag_log format["WAI: Mission Convoy Started At %1",_position];
 
-_veh = createVehicle [_vehclass,_position, [], 0, "CAN_COLLIDE"];
+[[(_position select 0),(_position select 1),0]] call spawn_ammo_box;
+
+_veh = createVehicle [_vehclass,[(_position select 0) - 15,(_position select 1),0], [], 0, "CAN_COLLIDE"];
 _vehdir = round(random 360);
 _veh setDir _vehdir;
 clearWeaponCargoGlobal _veh;
 clearMagazineCargoGlobal _veh;
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh];
-diag_log format["WAI: Mission Armed Chopper spawned a %1",_vehname];
+diag_log format["WAI: Mission Convoy spawned a %1",_vehclass];
 
 _objPosition = getPosATL _veh;
-//[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
 
-_rndnum = round (random 3) + 3;
+_veh2 = createVehicle [_vehclass2,[(_position select 0) + 15,(_position select 1),0], [], 0, "CAN_COLLIDE"];
+_veh2 setDir _vehdir;
+clearWeaponCargoGlobal _veh2;
+clearMagazineCargoGlobal _veh2;
+PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh2];
+diag_log format["WAI: Mission Convoy spawned a %1",_vehclass2];
+
+_objPosition2 = getPosATL _veh2;
+
+_veh3 = createVehicle [_vehclass3,[(_position select 0) + 30,(_position select 1),0], [], 0, "CAN_COLLIDE"];
+_veh3 setDir _vehdir;
+clearWeaponCargoGlobal _veh3;
+clearMagazineCargoGlobal _veh3;
+PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh3];
+diag_log format["WAI: Mission Convoy spawned a %1",_vehclass3];
+
+_objPosition3 = getPosATL _veh3;
+
+_rndnum = round (random 3) + 5;
 [[_position select 0, _position select 1, 0],                  //position
 _rndnum,						  //Number Of units
 1,					      //Skill level 0-1. Has no effect if using custom skills
@@ -51,7 +71,7 @@ true
 "Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
 ] call spawn_static;
 
-if ((random 4) < 1) then {
+if ((random 2) < 1) then {
 	[[(_position select 0),(_position select 1),0],  //Position that units will be dropped by
 	[-2000, 8500, 0],                           //Starting position of the heli
 	500,                               //Radius from drop position a player has to be to spawn chopper
@@ -68,8 +88,8 @@ if ((random 4) < 1) then {
 	] spawn heli_para;
 };
 
-[_position,_vehname] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
-[nil,nil,rTitleText,"Bandits have disabled an armed chopper! Check your map for the location!", "PLAIN",10] call RE;
+[_position,"Disabled Convoy"] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
+[nil,nil,rTitleText,"Bandits have disabled a Convoy! Check your map for the location!", "PLAIN",10] call RE;
 
 waitUntil
 {
@@ -80,14 +100,16 @@ waitUntil
 };
 
 [_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+[_veh2,[_vehdir,_objPosition2],_vehclass2,true,"0"] call custom_publish;
+[_veh3,[_vehdir,_objPosition3],_vehclass3,true,"0"] call custom_publish;
 
 waitUntil
 {
 	sleep 5;
 	_playerPresent = false;
-	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
+	{if((isPlayer _x) AND (_x distance _position <= 30)) then {_playerPresent = true};}forEach playableUnits;
 	(_playerPresent)
 };
-diag_log format["WAI: Mission Armed chopper Ended At %1",_position];
-[nil,nil,rTitleText,"Survivors have secured the armed chopper!", "PLAIN",10] call RE;
+diag_log format["WAI: Mission Convoy Ended At %1",_position];
+[nil,nil,rTitleText,"Survivors have secured the convoy!", "PLAIN",10] call RE;
 missionrunning = false;

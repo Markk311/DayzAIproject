@@ -37,25 +37,9 @@ true
 "Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
 ] call spawn_static;
 
-if ((random 2) < 1) then {
-	[[(_position select 0),(_position select 1),0],  //Position that units will be dropped by
-	[0,0,0],                           //Starting position of the heli
-	500,                               //Radius from drop position a player has to be to spawn chopper
-	"UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
-	4,                                 //Number of units to be para dropped
-	1,                                 //Skill of para dropped units. No effect is using custom skills.
-	"Random",                          //Primary gun set number. "Random" for random weapon set.
-	4,                                 //Number of magazines
-	"",                                //Backpack "" for random or classname here.
-	"Bandit2_DZ",                                //Skin "" for random or classname here.
-	"Random",                          //Gearset number. "Random" for random gear set.
-	False,                          	//True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
-	True
-	] spawn heli_para;
-};
 
 [_position,"Weapon cache"] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
-[nil,nil,rTitleText,"Bandits have obtained a weapon cache! Check your map for the location!", "PLAIN",10] call RE;
+[nil,nil,rTitleText,"Bandits have obtained a weapon crate! Check your map for the location!", "PLAIN",10] call RE;
 
 waitUntil
 {

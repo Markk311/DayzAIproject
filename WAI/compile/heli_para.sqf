@@ -1,5 +1,5 @@
 if (!isServer)exitWith{};
-private ["_pgroup","_drop","_helipos","_gunner2","_gunner","_playerPresent","_skillarray","_aicskill","_aiskin","_aigear","_helipatrol","_gear","_skin","_backpack","_mags","_gun","_triggerdis","_startingpos","_aiweapon","_mission","_heli_class","_startPos","_helicopter","_unitGroup","_pilot","_skill","_paranumber","_position","_wp1"];
+private ["_cleanheli","_drop","_helipos","_gunner2","_gunner","_playerPresent","_skillarray","_aicskill","_aiskin","_aigear","_helipatrol","_gear","_skin","_backpack","_mags","_gun","_triggerdis","_startingpos","_aiweapon","_mission","_heli_class","_startPos","_helicopter","_unitGroup","_pilot","_skill","_paranumber","_position","_wp1"];
 _position = _this select 0;
 _startingpos = _this select 1;
 _triggerdis = _this select 2;
@@ -69,6 +69,7 @@ ai_air_units = (ai_air_units +1);
 {_gunner2 setSkill [_x,0.7]} forEach _skillarray;
 {_x addweapon "Makarov";_x addmagazine "8Rnd_9x18_Makarov";_x addmagazine "8Rnd_9x18_Makarov";} forEach (units _unitgroup);
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_helicopter];
+[_helicopter] spawn veh_monitor;
 
 _unitGroup allowFleeing 0;
 _unitGroup setBehaviour "CARELESS";
@@ -83,13 +84,12 @@ _wp setWaypointCompletionRadius 100;
 _drop = True;
 _helipos = getpos _helicopter;
 while {(alive _helicopter) AND (_drop)} do {
-	private ["_magazine","_weapon","_weaponandmag","_chute","_para"];
+	private ["_magazine","_weapon","_weaponandmag","_chute","_para","_pgroup"];
 	sleep 1;
 	_helipos = getpos _helicopter;
-	if (_helipos distance [(_position select 0),(_position select 1),100] <= 100) then {
+	if (_helipos distance [(_position select 0),(_position select 1),100] <= 200) then {
 		_pgroup = createGroup east;
 		for "_x" from 1 to _paranumber do {
-			sleep 1.5;
 			_helipos = getpos _helicopter;
 			switch (_gun) do {
 				case 0 : {_aiweapon = ai_wep0;};
@@ -149,10 +149,11 @@ while {(alive _helicopter) AND (_drop)} do {
 				{_para setSkill [_x,_skill]} forEach _skillarray;
 			};
 			ai_ground_units = (ai_ground_units + 1);
-			_para addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill;}];
+			_para addEventHandler ["Killed",{[_this select 0, _this select 1, "ground"] call on_kill;}];
 			_chute = createVehicle ["ParachuteEast", [(_helipos select 0), (_helipos select 1), (_helipos select 2)], [], 0, "NONE"];
 			_para moveInDriver _chute;
 			[_para] joinSilent _pgroup;
+			sleep 1.5;
 		};
 		_drop = false;
 		_pgroup selectLeader ((units _pgroup) select 0);
@@ -167,24 +168,25 @@ if (_helipatrol) then {
 	_unitGroup setBehaviour "AWARE";
 	_unitGroup setSpeedMode "FULL";
 	_unitGroup setCombatMode "RED";
-	{_x addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill_chopper;}];} forEach (units _unitgroup);
+	{_x addEventHandler ["Killed",{[_this select 0, _this select 1, "air"] call on_kill;}];} forEach (units _unitgroup);
 } else {
 	{_x doMove [(_startingpos select 0), (_startingpos select 1), 100]} forEach (units _unitGroup);
 	_unitGroup setBehaviour "CARELESS";
 	_unitGroup setSpeedMode "FULL";
 	_unitGroup setCombatMode "RED";
-	while {alive _helicopter} do {
+	_cleanheli = True;
+	while {_cleanheli} do {
 		sleep 20;
 		_helipos1 = getpos _helicopter;
-		if (_helipos1 distance [(_startingpos select 0),(_startingpos select 1),100] <= 200) then {
+		if ((_helipos1 distance [(_startingpos select 0),(_startingpos select 1),100] <= 200) OR (!alive _helicopter)) then {
 			deleteVehicle _helicopter;
 			{deleteVehicle _x} forEach (units _unitgroup);
 			sleep 10;
 			deleteGroup _unitGroup;
 			ai_air_units = (ai_air_units -3);
 			diag_log "WAI: Paradrop cleaned up";
+			_cleanheli = False;
 		};
-		
 	};
 };
 

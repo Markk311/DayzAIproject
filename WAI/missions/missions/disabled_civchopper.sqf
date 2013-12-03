@@ -5,16 +5,18 @@ _vehclass = civil_aircraft call BIS_fnc_selectRandom;
 
 _vehname	= getText (configFile >> "CfgVehicles" >> _vehclass >> "displayName");
 _position = [getMarkerPos "center",0,5500,10,0,2000,0] call BIS_fnc_findSafePos;
-diag_log format["WAI: Mission Civilian Chopper Started At %1",_position];
+diag_log format["WAI: Mission Civilian Aircraft Started At %1",_position];
 
 _veh = createVehicle [_vehclass,_position, [], 0, "CAN_COLLIDE"];
 _vehdir = round(random 360);
 _veh setDir _vehdir;
+clearWeaponCargoGlobal _veh;
+clearMagazineCargoGlobal _veh;
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh];
-diag_log format["WAI: Mission Civilian Chopper spawned a %1",_vehname];
+diag_log format["WAI: Mission Civilian Aircraft spawned a %1",_vehname];
 
 _objPosition = getPosATL _veh;
-[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+//[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
 
 _rndnum = round (random 3) + 4;
 [[_position select 0, _position select 1, 0],                  //position
@@ -41,15 +43,26 @@ if ((random 5) < 1) then {
 };
 
 [_position,_vehname] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
-[nil,nil,rTitleText,"Bandits have disabled a Civilian Chopper! Check your map for the location!", "PLAIN",10] call RE;
+[nil,nil,rTitleText,"Bandits have disabled a Civilian Aircraft! Check your map for the location!", "PLAIN",10] call RE;
 
 waitUntil
 {
-	sleep 10;
+	sleep 5;
+	_playerPresent = false;
+	{if((isPlayer _x) AND (_x distance _position <= 150)) then {_playerPresent = true};}forEach playableUnits;
+	(_playerPresent)
+};
+
+[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+
+waitUntil
+{
+	sleep 5;
 	_playerPresent = false;
 	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
 	(_playerPresent)
 };
-diag_log format["WAI: Mission Civilian Chopper Ended At %1",_position];
-[nil,nil,rTitleText,"Survivors have secured the Civilian Chopper!", "PLAIN",10] call RE;
+
+diag_log format["WAI: Mission Civilian Aircraft Ended At %1",_position];
+[nil,nil,rTitleText,"Survivors have secured the Civilian Aircraft!", "PLAIN",10] call RE;
 missionrunning = false;

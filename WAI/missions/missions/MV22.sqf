@@ -10,15 +10,17 @@ diag_log format["WAI: Mission MV22 Started At %1",_position];
 _veh = createVehicle [_vehclass,_position, [], 0, "CAN_COLLIDE"];
 _vehdir = round(random 360);
 _veh setDir _vehdir;
+clearWeaponCargoGlobal _veh;
+clearMagazineCargoGlobal _veh;
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh];
 diag_log format["WAI: Mission MV22 spawned a %1",_vehname];
 
 _objPosition = getPosATL _veh;
-[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+//[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
 
 _rndnum = round (random 3) + 4;
 [[_position select 0, _position select 1, 0],                  //position
-_rndnum,						  //Number Of units
+_rndnum,				  //Number Of units
 1,					      //Skill level 0-1. Has no effect if using custom skills
 "Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
@@ -42,7 +44,7 @@ true
 [[[(_position select 0), (_position select 1) + 10, 0],[(_position select 0) + 10, (_position select 1), 0]], //position(s) (can be multiple).
 "M2StaticMG",             //Classname of turret
 0.5,					  //Skill level 0-1. Has no effect if using custom skills
-"Bandit2_DZ",				          //Skin "" for random or classname here.
+"Bandit2_DZ",			  //Skin "" for random or classname here.
 0,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 "",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
@@ -51,7 +53,7 @@ true
 
 if ((random 2) < 1) then {
 	[[(_position select 0),(_position select 1),0],  //Position that units will be dropped by
-	[0,0,0],                           //Starting position of the heli
+	[-2000, 8500, 0],                           //Starting position of the heli
 	500,                               //Radius from drop position a player has to be to spawn chopper
 	"UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
 	4,                                 //Number of units to be para dropped
@@ -59,9 +61,9 @@ if ((random 2) < 1) then {
 	"Random",                          //Primary gun set number. "Random" for random weapon set.
 	4,                                 //Number of magazines
 	"",                                //Backpack "" for random or classname here.
-	"Bandit2_DZ",                                //Skin "" for random or classname here.
+	"Bandit2_DZ",                      //Skin "" for random or classname here.
 	"Random",                          //Gearset number. "Random" for random gear set.
-	False,                          	//True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
+	False,                             //True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
 	True
 	] spawn heli_para;
 };
@@ -71,7 +73,17 @@ if ((random 2) < 1) then {
 
 waitUntil
 {
-	sleep 10;
+	sleep 5;
+	_playerPresent = false;
+	{if((isPlayer _x) AND (_x distance _position <= 150)) then {_playerPresent = true};}forEach playableUnits;
+	(_playerPresent)
+};
+
+[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+
+waitUntil
+{
+	sleep 5;
 	_playerPresent = false;
 	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
 	(_playerPresent)

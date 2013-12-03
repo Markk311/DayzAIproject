@@ -1,8 +1,15 @@
 private ["_unit","_player","_humanity","_banditkills"];
 _unit = _this select 0;
 _player = _this select 1;
+_type = _this select 2;
 
-ai_ground_units = (ai_ground_units -1);
+switch (_type) do {
+	case "ground" : {ai_ground_units = (ai_ground_units -1);};
+	case "air" : {ai_air_units = (ai_air_units -1);};
+	case "vehicle" : {ai_vehicle_units = (ai_vehicle_units -1);};
+	case "static" : {ai_emplacement_units = (ai_emplacement_units -1);};
+};
+
 _unit setVariable ["killedat", time];
 if (isPlayer _player) then {
 	private ["_banditkills","_humanity"];

@@ -81,10 +81,11 @@ if (ai_static_skills) then {
 	{_unit setSkill [_x,_skill]} forEach _skillarray;
 };
 ai_emplacement_units = (ai_emplacement_units + 1);
-_unit addEventHandler ["Killed",{[_this select 0, _this select 1] call on_kill_static;}];
+_unit addEventHandler ["Killed",{[_this select 0, _this select 1, "static"] call on_kill;}];
 _static addEventHandler ["GetOut",{(_this select 0) setDamage 1;}];
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_static];
 _unit moveingunner _static;
+[_static] spawn veh_monitor;
 } forEach _position;
 _unitGroup selectLeader ((units _unitGroup) select 0);
 diag_log format ["WAI: Sapwned in %1 %2",_unitnumber,_class];

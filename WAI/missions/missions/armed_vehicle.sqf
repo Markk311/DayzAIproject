@@ -14,7 +14,7 @@ PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh];
 diag_log format["WAI: Mission Armed Vehicle spawned a %1",_vehname];
 
 _objPosition = getPosATL _veh;
-[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+//[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
 
 _rndnum = round (random 3) + 3;
 [[_position select 0, _position select 1, 0],                  //position
@@ -71,7 +71,17 @@ if ((random 3) < 1) then {
 
 waitUntil
 {
-	sleep 10;
+	sleep 5;
+	_playerPresent = false;
+	{if((isPlayer _x) AND (_x distance _position <= 150)) then {_playerPresent = true};}forEach playableUnits;
+	(_playerPresent)
+};
+
+[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+
+waitUntil
+{
+	sleep 5;
 	_playerPresent = false;
 	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
 	(_playerPresent)
