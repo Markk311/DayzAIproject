@@ -1,3 +1,24 @@
+// Time between missions (seconds)
+wai_mission_timer = 1800;
+
+// How long before a mission times out (seconds)
+wai_mission_timeout = 3600;
+
+// missions used when selecting the next random mission
+wai_missions = [
+"armed_vehicle",
+"crash_spawner",
+"disabled_civchopper",
+"disabled_milchopper",
+"MV22",
+"weapon_cache",
+"convoy"
+];
+
+// fuel the mission vehicles spawn with 0-100.
+wai_mission_fuel = 0;
+
+// armed vehicles to spawn in missions
 armed_vehicle = [
 "ArmoredSUV_PMC_DZE",
 "HMMWV_M998A2_SOV_DES_EP1_DZE",
@@ -12,6 +33,7 @@ armed_vehicle = [
 "UAZ_MG_TK_EP1_DZE"
 ];
 
+//armed helis to spawn in missions
 armed_chopper = [
 "CH_47F_EP1_DZE",
 "Mi17_DZE",
@@ -20,6 +42,7 @@ armed_chopper = [
 "UH60M_EP1_DZE"
 ];
 
+// civilian aircraft to spawn in missions
 civil_aircraft = [
 "AH6X_DZ",
 "MH6J_DZ",
@@ -28,6 +51,7 @@ civil_aircraft = [
 "MV22_DZ"
 ];
 
+// military unarmed vehicles to spawn in missions
 military_unarmed = [
 "GAZ_Vodnik_MedEvac",
 "HMMWV_Ambulance",
@@ -45,6 +69,7 @@ military_unarmed = [
 "UAZ_Unarmed_UN_EP1"
 ];
 
+// cargo trucks to spawn in missions
 cargo_trucks = [
 "Kamaz",
 "MTVR_DES_EP1",
@@ -55,6 +80,7 @@ cargo_trucks = [
 "V3S_Open_TK_EP1"
 ];
 
+// refuel trucks to spawn in missions
 refuel_trucks = [
 "V3S_Refuel_TK_GUE_EP1_DZ",
 "UralRefuel_TK_EP1_DZ",
@@ -62,6 +88,7 @@ refuel_trucks = [
 "KamazRefuel_DZ"
 ];
 
+// civilian vehicles to spawn in missions
 civil_vehicles = [
 "hilux1_civil_1_open",
 "hilux1_civil_2_covered",
@@ -79,10 +106,12 @@ civil_vehicles = [
 "SUV_Yellow"
 ];
 
+// Number of guns to spawn in ammo boxes 
+wai_mission_numberofguns = 8;
+// classnames of guns to spawn in ammo boxes (only class weapons)
 ammo_box_guns = [
 "M9SD",
 "M9",
-"AK_74_GL",
 "AKS_74_UN_kobra",
 "AK_107_pso",
 "AK_107_GL_pso",
@@ -90,18 +119,13 @@ ammo_box_guns = [
 "M4A3_CCO_EP1",
 "M4A1_AIM_SD_camo",
 "M16A4_ACG",
-"M16A4_ACG_GL",
-"M4A3_RCO_GL_EP1",
 "M8_carbineGL",
-"SCAR_L_STD_EGLM_RCO",
-"BAF_L85A2_UGL_Holo",
 "VSS_vintorez",
 "M8_sharpshooter",
 "M40A3",
 "Mk_48_DZ",
 "M240_DZ",
 "M249_DZ",
-"M32_EP1",
 "Pecheneg_DZ",
 "RPK_74",
 "BAF_LRR_scoped",
@@ -110,14 +134,15 @@ ammo_box_guns = [
 "SCAR_H_LNG_Sniper_SD",
 "M110_NVG_EP1",
 "Sa58V_RCO_EP1",
-"SCAR_L_STD_Mk4CQT",
-"SCAR_H_STD_EGLM_Spect",
-"KSVK",
+"KSVK_DZE",
 "BAF_L86A2_ACOG",
 "M14_EP1",
 "Sa58V_CCO_EP1"
 ];
 
+// Number of tools to spawn in ammo boxes 
+wai_mission_numberoftools = 5;
+// classnames of tools to spawn in ammo boxes (only toolbelt items or weapon class Eg. "Chainsaw" or "ItemToolbox")
 ammo_box_tools =[
 "ItemToolbox",
 "ItemKnife",
@@ -132,7 +157,17 @@ ammo_box_tools =[
 "ItemHatchet_DZE",
 "ItemMachete",
 "ItemMatchbox_DZE",
-"NVGoggles"
+"NVGoggles",
+"chainsaw"
 ];
+
+// Number of items to spawn in ammo boxes 
+wai_mission_numberofitems = 10;
+// classnames of items to spawn in ammo boxes (only type magazine will work here)
+ammo_box_items =[
+"ItemBandage",
+"ItemSodaCoke"
+];
+
 //////////////////////////////////////////////////////////////////////
 WAImissionconfig = True;

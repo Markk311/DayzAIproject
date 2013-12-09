@@ -84,6 +84,9 @@ for "_x" from 1 to _unitnumber do {
 	};
 	ai_ground_units = (ai_ground_units + 1);
 	_unit addEventHandler ["Killed",{[_this select 0, _this select 1, "ground"] call on_kill;}];
+	if (_mission) then {
+		_unit setVariable ["missionclean", "ground"];
+	};
 };
 _unitGroup selectLeader ((units _unitGroup) select 0);
 [_unitGroup, _position, _mission] call group_waypoints;

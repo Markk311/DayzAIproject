@@ -1,4 +1,4 @@
-private ["_vehname","_veh","_position","_vehclass","_vehdir","_objPosition"];
+private ["_playerPresent","_cleanmission","_currenttime","_starttime","_missiontimeout","_vehname","_veh","_position","_vehclass","_vehdir","_objPosition"];
 
 
 _vehclass = armed_vehicle call BIS_fnc_selectRandom;
@@ -10,6 +10,7 @@ diag_log format["WAI: Mission Armed Vehicle Started At %1",_position];
 _veh = createVehicle [_vehclass,_position, [], 0, "CAN_COLLIDE"];
 _vehdir = round(random 360);
 _veh setDir _vehdir;
+_veh setVariable ["ObjectID","1",true];
 PVDZE_serverObjectMonitor set [count PVDZE_serverObjectMonitor,_veh];
 diag_log format["WAI: Mission Armed Vehicle spawned a %1",_vehname];
 
@@ -23,7 +24,7 @@ _rndnum,						  //Number Of units
 "Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines
 "",						  //Backpack "" for random or classname here.
-"Bandit2_DZ",						  //Skin "" for random or classname here.
+"Bandit2_DZ",			  //Skin "" for random or classname here.
 "Random",				  //Gearset number. "Random" for random gear set.
 true					  // Mission true or false
 ] call spawn_group;
@@ -46,46 +47,54 @@ true					  // Mission true or false
 1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 "",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
-"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+"Random",				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+True					  // Mission true or false
 ] call spawn_static;
 
-if ((random 3) < 1) then {
-	[[(_position select 0),(_position select 1),0],  //Position that units will be dropped by
-	[0,0,0],                           //Starting position of the heli
-	500,                               //Radius from drop position a player has to be to spawn chopper
-	"UH1H_DZ",                         //Classname of chopper (Make sure it has 2 gunner seats!)
-	4,                                 //Number of units to be para dropped
-	1,                                 //Skill of para dropped units. No effect is using custom skills.
-	"Random",                          //Primary gun set number. "Random" for random weapon set.
-	4,                                 //Number of magazines
-	"",                                //Backpack "" for random or classname here.
-	"Bandit2_DZ",                                //Skin "" for random or classname here.
-	"Random",                          //Gearset number. "Random" for random gear set.
-	False,                          	//True: Heli will stay at position and fight. False: Heli will leave if not under fire. 
-	True
-	] spawn heli_para;
-};
 
 [_position,_vehname] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
 [nil,nil,rTitleText,"Bandits have disabled an armed vehicle! Check your map for the location!", "PLAIN",10] call RE;
 
-waitUntil
-{
+_missiontimeout = true;
+_cleanmission = false;
+_playerPresent = false;
+_starttime = floor(time);
+while {_missiontimeout} do {
 	sleep 5;
-	_playerPresent = false;
+	_currenttime = floor(time);
 	{if((isPlayer _x) AND (_x distance _position <= 150)) then {_playerPresent = true};}forEach playableUnits;
-	(_playerPresent)
+	if (_currenttime - _starttime >= wai_mission_timeout) then {_cleanmission = true;};
+	if ((_playerPresent) OR (_cleanmission)) then {_missiontimeout = false;};
+};
+if (_playerPresent) then {
+	[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
+	waitUntil
+	{
+		sleep 5;
+		_playerPresent = false;
+		{if((isPlayer _x) AND (_x distance _position <= 30)) then {_playerPresent = true};}forEach playableUnits;
+		(_playerPresent)
+	};
+	diag_log format["WAI: Mission Armed vehicle Ended At %1",_position];
+	[nil,nil,rTitleText,"Survivors have secured the armed vehicle!", "PLAIN",10] call RE;
+} else {
+	clean_running_mission = True;
+	deleteVehicle _veh;
+	{_cleanunits = _x getVariable "missionclean";
+	if (!isNil "_cleanunits") then {
+		switch (_cleanunits) do {
+			case "ground" : {ai_ground_units = (ai_ground_units -1);};
+			case "air" : {ai_air_units = (ai_air_units -1);};
+			case "vehicle" : {ai_vehicle_units = (ai_vehicle_units -1);};
+			case "static" : {ai_emplacement_units = (ai_emplacement_units -1);};
+		};
+		deleteVehicle _x;
+		sleep 0.05;
+	};	
+	} forEach allUnits;
+	
+	diag_log format["WAI: Mission Armed vehicle Timed Out At %1",_position];
+	[nil,nil,rTitleText,"Survivors did not secure the armed vehicle in time!", "PLAIN",10] call RE;
 };
 
-[_veh,[_vehdir,_objPosition],_vehclass,true,"0"] call custom_publish;
-
-waitUntil
-{
-	sleep 5;
-	_playerPresent = false;
-	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
-	(_playerPresent)
-};
-diag_log format["WAI: Mission Armed vehicle Ended At %1",_position];
-[nil,nil,rTitleText,"Survivors have secured the armed vehicle!", "PLAIN",10] call RE;
 missionrunning = false;

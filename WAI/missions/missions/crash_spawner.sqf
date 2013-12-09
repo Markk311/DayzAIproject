@@ -1,4 +1,4 @@
-private ["_guaranteedLoot","_randomizedLoot","_spawnChance","_spawnMarker","_spawnRadius","_spawnFire","_fadeFire","_crashModel","_lootTable","_crashName","_spawnRoll","_position","_crash","_config","_hasAdjustment","_newHeight","_adjustedPos","_num","_itemTypes","_index","_weights","_cntWeights","_nearby","_itemType"];
+private ["_currenttime","_starttime","_playerPresent","_cleanmission","_missiontimeout","_guaranteedLoot","_randomizedLoot","_spawnChance","_spawnMarker","_spawnRadius","_spawnFire","_fadeFire","_crashModel","_lootTable","_crashName","_spawnRoll","_position","_crash","_config","_hasAdjustment","_newHeight","_adjustedPos","_num","_itemTypes","_index","_weights","_cntWeights","_nearby","_itemType"];
 
 _guaranteedLoot = 5;
 _randomizedLoot = 2;
@@ -52,10 +52,6 @@ _crash enableSimulation false;
 
 _num = round(random _randomizedLoot) + _guaranteedLoot;
 
-if(_crashModel == "Mass_grave_DZ") then {
-	_spawnFire = false;
-	_num = _num * 2;
-};
 
 if (_spawnFire) then {
 	//["PVDZE_obj_Fire",[_crash,2,time,false,_fadeFire]] call broadcastRpcCallAll;
@@ -94,7 +90,7 @@ _rndnum,						  //Number Of units
 "",						  //Backpack "" for random or classname here.
 "Bandit2_DZ",						  //Skin "" for random or classname here.
 "Random",				  //Gearset number. "Random" for random gear set.
-true
+true						// mission true
 ] call spawn_group;
 
 if ((random 3) < 1) then {
@@ -105,18 +101,52 @@ if ((random 3) < 1) then {
 	1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 	2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 	"",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
-	"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+	"Random",				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+	true						// mission true
 	] call spawn_static;  
 };
 [_position,"Chopper Crash"] execVM "\z\addons\dayz_server\WAI\missions\compile\markers.sqf";
 [nil,nil,rTitleText,"Bandits have crashed a chopper! Check your map for the location!", "PLAIN",10] call RE;
-waitUntil
-{
-	sleep 10;
-	_playerPresent = false;
-	{if((isPlayer _x) AND (_x distance _position <= 25)) then {_playerPresent = true};}forEach playableUnits;
-	(_playerPresent)
+
+_missiontimeout = true;
+_cleanmission = false;
+_playerPresent = false;
+_starttime = floor(time);
+while {_missiontimeout} do {
+	sleep 5;
+	_currenttime = floor(time);
+	{if((isPlayer _x) AND (_x distance _position <= 100)) then {_playerPresent = true};}forEach playableUnits;
+	if (_currenttime - _starttime >= wai_mission_timeout) then {_cleanmission = true;};
+	if ((_playerPresent) OR (_cleanmission)) then {_missiontimeout = false;};
 };
-diag_log format["WAI: Mission Crash_Spawner Ended At %1",_position];
-[nil,nil,rTitleText,"Survivors have secured the crash site!", "PLAIN",10] call RE;
+if (_playerPresent) then {
+	waitUntil
+	{
+		sleep 5;
+		_playerPresent = false;
+		{if((isPlayer _x) AND (_x distance _position <= 30)) then {_playerPresent = true};}forEach playableUnits;
+		(_playerPresent)
+	};
+	diag_log format["WAI: Mission Crash_Spawner Ended At %1",_position];
+	[nil,nil,rTitleText,"Survivors have secured the crash site!", "PLAIN",10] call RE;
+} else {
+	clean_running_mission = True;
+	deleteVehicle _crash;
+	{_cleanunits = _x getVariable "missionclean";
+	if (!isNil "_cleanunits") then {
+		switch (_cleanunits) do {
+			case "ground" : {ai_ground_units = (ai_ground_units -1);};
+			case "air" : {ai_air_units = (ai_air_units -1);};
+			case "vehicle" : {ai_vehicle_units = (ai_vehicle_units -1);};
+			case "static" : {ai_emplacement_units = (ai_emplacement_units -1);};
+		};
+		deleteVehicle _x;
+		sleep 0.05;
+	};	
+	} forEach allUnits;
+	
+	diag_log format["WAI: Mission Crash_Spawner Timed Out At %1",_position];
+	[nil,nil,rTitleText,"Survivors did not secure the crash site in time!", "PLAIN",10] call RE;
+};
+
 missionrunning = false;

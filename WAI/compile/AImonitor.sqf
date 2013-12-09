@@ -18,5 +18,5 @@ while {true} do {
 	diag_log format ["%1 Active chopper patrol units (Crew)", ai_air_units];
 	diag_log format ["%1 Active vehicle patrol units (Crew)", ai_vehicle_units];
 
-	sleep 900;
+	sleep 60;
 };

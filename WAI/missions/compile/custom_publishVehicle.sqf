@@ -42,7 +42,7 @@ if (_spawnDMG) then {
 
 		// just set low base dmg - may change later
 		_damage = 0;
-
+		_fuel = wai_mission_fuel;
 	};
 };
 
