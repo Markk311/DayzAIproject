@@ -19,6 +19,7 @@ _helicopter setFuel 1;
 _helicopter engineOn true;
 _helicopter setVehicleAmmo 1;
 _helicopter flyInHeight 150;
+_helicopter lock true;
 _helicopter addEventHandler ["GetOut",{(_this select 0) setFuel 0;(_this select 0) setDamage 1;}];
 
 _pilot assignAsDriver _helicopter;

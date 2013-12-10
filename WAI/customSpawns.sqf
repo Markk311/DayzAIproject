@@ -36,9 +36,9 @@ Custom static weapon spawns Eg. (with mutiple positions)
 
 [[[911.21545,4532.7612,2.6292224],[921.21545,4532.7612,2.6292224]], //position(s) (can be multiple).
 "M2StaticMG",             //Classname of turret
-0.5,					  //Skill level 0-1. Has no effecme here.
-1,						  //Primary gun set number. "Rat if using custom skills
-"Bandit2_DZ",			  //Skin "" for random or classnandom" for random weapon set. (not needed if ai_static_useweapon = False)
+0.5,					  //Skill level 0-1. Has no effect if using custom skills
+"Bandit2_DZ",			  //Skin "" for random or classname here. 
+1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 "",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
 "Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
@@ -55,7 +55,7 @@ Place your custom static weapon spawns below
 Custom Chopper Patrol spawn Eg.
 
 [[725.391,4526.06,0],    //Position to patrol
-[0,0,0],	             // Postition to spawn chopper at
+[0,0,0],	             // Position to spawn chopper at
 2000,					//Radius of patrol
 10,                     //Number of waypoints to give
 "UH1H_DZ",		        //Classname of vehicle (make sure it has driver and two gunners)
@@ -73,7 +73,7 @@ Place your heli patrols below
 Custom Vehicle patrol spawns Eg. (Watch out they are stupid)
 
 [[725.391,4526.06,0],   //Position to patrol
-[725.391,4526.06,0],	// Postition to spawn at
+[725.391,4526.06,0],	// Position to spawn at
 200,					//Radius of patrol
 10,                     //Number of waypoints to give
 "HMMWV_Armored",		//Classname of vehicle (make sure it has driver and gunner)

@@ -39,7 +39,8 @@ if ((random 5) < 1) then {
 	1,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 	2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 	"",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
-	"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+	"Random",				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+	true						//true mission
 	] call spawn_static;  
 };
 

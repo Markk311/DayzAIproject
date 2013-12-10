@@ -66,7 +66,7 @@ true					// mission true
 ] call spawn_group;
 
 [[_position select 0, _position select 1, 0],                  //position
-3,						  //Number Of units
+4,						  //Number Of units
 1,					      //Skill level 0-1. Has no effect if using custom skills
 "Random",			      //Primary gun set number. "Random" for random weapon set.
 4,						  //Number of magazines

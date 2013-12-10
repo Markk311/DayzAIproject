@@ -36,7 +36,8 @@ true
 0,						  //Primary gun set number. "Random" for random weapon set. (not needed if ai_static_useweapon = False)
 2,						  //Number of magazines. (not needed if ai_static_useweapon = False)
 "",						  //Backpack "" for random or classname here. (not needed if ai_static_useweapon = False)
-"Random"				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+"Random",				  //Gearset number. "Random" for random gear set. (not needed if ai_static_useweapon = False)
+true
 ] call spawn_static;
 
 
